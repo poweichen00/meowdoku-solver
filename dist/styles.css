@@ -17,6 +17,10 @@
   box-sizing: border-box;
 }
 
+[hidden] {
+  display: none !important;
+}
+
 html {
   background: var(--paper);
 }
@@ -282,9 +286,12 @@ h2 {
 .result-content {
   display: grid;
   gap: 18px;
+  min-width: 0;
 }
 
 .canvas-frame {
+  width: min(100%, 430px);
+  margin-inline: auto;
   overflow: hidden;
   border: 2px solid var(--ink);
   border-radius: 20px;
@@ -296,8 +303,6 @@ h2 {
   display: block;
   width: 100%;
   height: auto;
-  max-height: 66vh;
-  object-fit: contain;
 }
 
 .answer-list {
@@ -401,6 +406,61 @@ footer p {
 
   .answer-list {
     grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  body {
+    background: var(--card);
+  }
+
+  .shell {
+    width: 100%;
+    padding-top: max(14px, env(safe-area-inset-top));
+  }
+
+  .masthead {
+    padding-inline: 16px;
+  }
+
+  .masthead h1 {
+    font-size: clamp(1.42rem, 7vw, 1.9rem);
+  }
+
+  .brand-mark {
+    width: 48px;
+    height: 48px;
+    border-radius: 15px;
+    box-shadow: 4px 4px 0 var(--ink);
+    font-size: 24px;
+  }
+
+  .workspace {
+    border-right: 0;
+    border-left: 0;
+    border-radius: 0;
+    box-shadow: none;
+  }
+
+  .upload-panel,
+  .result-panel {
+    padding: 22px 16px;
+  }
+
+  .canvas-frame {
+    width: 100%;
+    border-radius: 16px;
+    box-shadow: 3px 3px 0 var(--ink);
+  }
+
+  .answer-list li {
+    padding: 9px 8px;
+    font-size: 0.82rem;
+    text-align: center;
+  }
+
+  footer {
+    padding-inline: 16px;
   }
 }
 

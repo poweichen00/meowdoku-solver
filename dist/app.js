@@ -53,21 +53,23 @@ function drawAnswer(image, analysis, scale) {
   canvas.height = image.naturalHeight;
   context.drawImage(image, 0, 0);
 
-  const radius = Math.max(16, (analysis.step * 0.34) / scale);
+  const radius = Math.max(12, (analysis.step * 0.25) / scale);
+  const outline = Math.max(3, radius * 0.14);
+  const safeInset = radius + outline + 2;
   context.textAlign = "center";
   context.textBaseline = "middle";
-  context.font = `800 ${Math.round(radius * 0.92)}px ui-rounded, system-ui, sans-serif`;
 
   analysis.clicks.forEach((point, index) => {
-    const x = point.x / scale;
-    const y = point.y / scale;
+    const label = String(index + 1);
+    const x = Math.max(safeInset, Math.min(canvas.width - safeInset, point.x / scale));
+    const y = Math.max(safeInset, Math.min(canvas.height - safeInset, point.y / scale));
     context.save();
     context.shadowColor = "rgba(40, 33, 38, 0.28)";
     context.shadowBlur = radius * 0.35;
     context.shadowOffsetY = radius * 0.12;
     context.fillStyle = "#ff765f";
     context.strokeStyle = "#fffdf9";
-    context.lineWidth = Math.max(4, radius * 0.16);
+    context.lineWidth = outline;
     context.beginPath();
     context.arc(x, y, radius, 0, Math.PI * 2);
     context.fill();
@@ -75,7 +77,9 @@ function drawAnswer(image, analysis, scale) {
     context.restore();
 
     context.fillStyle = "#282126";
-    context.fillText(String(index + 1), x, y + 1);
+    const fontScale = label.length > 1 ? 0.72 : 0.94;
+    context.font = `850 ${Math.round(radius * fontScale)}px ui-rounded, system-ui, sans-serif`;
+    context.fillText(label, x, y + 1);
   });
 }
 
