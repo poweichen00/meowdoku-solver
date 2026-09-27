@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="zh-Hant">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#f7f3ec" />
+    <meta
+      name="description"
+      content="選擇 Meowdoku 關卡截圖，在手機瀏覽器中離線辨識盤面並標出解答。"
+    />
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23282126'/%3E%3Cpath d='M15 25 19 12l10 8h6l10-8 4 13v17c0 8-7 14-17 14S15 50 15 42Z' fill='%23fff8ee'/%3E%3Ccircle cx='25' cy='34' r='3' fill='%23282126'/%3E%3Ccircle cx='39' cy='34' r='3' fill='%23282126'/%3E%3Cpath d='M29 42q3 3 6 0' fill='none' stroke='%23ef7f73' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E"
+    />
+    <title>Meowdoku 截圖解題器</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="shell">
+      <header class="masthead">
+        <div class="brand-mark" aria-hidden="true">🐱</div>
+        <div>
+          <p class="eyebrow">MEOWDOKU SOLVER</p>
+          <h1>截圖放進來，答案畫出來。</h1>
+        </div>
+      </header>
+
+      <section class="workspace" aria-labelledby="upload-title">
+        <div class="upload-panel">
+          <div>
+            <p class="step">01</p>
+            <h2 id="upload-title">選擇關卡截圖</h2>
+            <p class="supporting-copy">
+              截圖要包含完整彩色棋盤。圖片只在這台裝置處理，不會上傳。
+            </p>
+          </div>
+
+          <label class="upload-button" for="screenshot-input">
+            <span>選擇截圖</span>
+            <span aria-hidden="true">＋</span>
+          </label>
+          <input id="screenshot-input" type="file" accept="image/*" />
+
+          <div class="privacy-note">
+            <span class="privacy-dot" aria-hidden="true"></span>
+            離線運算 · 不保存圖片
+          </div>
+        </div>
+
+        <div class="result-panel" aria-live="polite">
+          <div class="result-heading">
+            <div>
+              <p class="step">02</p>
+              <h2>解答</h2>
+            </div>
+            <p id="status" class="status" data-state="idle">等待截圖</p>
+          </div>
+
+          <div id="empty-state" class="empty-state">
+            <div class="mini-grid" aria-hidden="true">
+              <span></span><span></span><span></span><span></span>
+              <span></span><span class="cat-cell">🐱</span><span></span><span></span>
+              <span></span><span></span><span></span><span></span>
+              <span></span><span></span><span></span><span></span>
+            </div>
+            <p>答案會直接標在你的截圖上</p>
+          </div>
+
+          <div id="result-content" class="result-content" hidden>
+            <div class="canvas-frame">
+              <canvas id="result-canvas" aria-label="已標示答案的關卡截圖"></canvas>
+            </div>
+            <ol id="answer-list" class="answer-list"></ol>
+            <button id="download-button" class="download-button" type="button">
+              儲存標註圖片
+            </button>
+          </div>
+
+          <div id="error-box" class="error-box" hidden>
+            <strong>沒有辨識到完整棋盤</strong>
+            <p id="error-message">請確認截圖包含整個彩色方格區域，再試一次。</p>
+          </div>
+        </div>
+      </section>
+
+      <footer>
+        <p>使用方式：截圖 → 選擇圖片 → 依標記位置回遊戲快速點兩下。</p>
+      </footer>
+    </main>
+
+    <script type="module" src="./app.js"></script>
+  </body>
+</html>
